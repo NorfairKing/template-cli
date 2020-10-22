@@ -6,7 +6,6 @@ module Template.Cli
 where
 
 import Template.Cli.Commands
-import Template.Cli.OptParse
 
 templateCli :: IO ()
 templateCli = do
