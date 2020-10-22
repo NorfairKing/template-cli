@@ -22,7 +22,7 @@ library:
   - yamlparse-applicative
 
 executables:
-  template-cli-exe:
+  template:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
