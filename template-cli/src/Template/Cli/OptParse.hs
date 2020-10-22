@@ -309,17 +309,16 @@ parseCommandGreet = OptParse.info parser modifier
   where
     modifier = OptParse.fullDesc <> OptParse.progDesc "Greet the user"
     parser =
-      ( GreetArgs
-          <$> optional
-            ( strOption
-                ( mconcat
-                    [ long "greeting",
-                      help "What to say when greeting",
-                      metavar "GREETING"
-                    ]
-                )
-            )
-      )
+      GreetArgs
+        <$> optional
+          ( strOption
+              ( mconcat
+                  [ long "greeting",
+                    help "What to say when greeting",
+                    metavar "GREETING"
+                  ]
+              )
+          )
 
 -- | The flags that are common across commands.
 data Flags

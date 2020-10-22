@@ -44,19 +44,18 @@ spec = do
         Failure err -> expectationFailure $ unlines ["Failed to parse arguments: ", show err]
         Success a ->
           a
-            `shouldBe` ( Arguments
-                           ( CommandGreet
-                               ( GreetArgs
-                                   { greetArgGreeting = Just "hello"
-                                   }
-                               )
-                           )
-                           ( Flags
-                               { flagConfigFile = Nothing,
-                                 flagPolite = Just True
-                               }
-                           )
-                       )
+            `shouldBe` Arguments
+              ( CommandGreet
+                  ( GreetArgs
+                      { greetArgGreeting = Just "hello"
+                      }
+                  )
+              )
+              ( Flags
+                  { flagConfigFile = Nothing,
+                    flagPolite = Just True
+                  }
+              )
   describe "Environment"
     $ it "parses HELLO_WORLD_GREETING and HELLO_WORLD_POLITE correctly"
     $ do
@@ -65,12 +64,11 @@ spec = do
         Left err -> expectationFailure $ unlines ["Failed to parse environment variables: ", show err]
         Right e ->
           e
-            `shouldBe` ( Environment
-                           { envConfigFile = Nothing,
-                             envGreeting = Just "hello",
-                             envPolite = Just True
-                           }
-                       )
+            `shouldBe` Environment
+              { envConfigFile = Nothing,
+                envGreeting = Just "hello",
+                envPolite = Just True
+              }
   describe "Configuration"
     $ it "parses 'greeting' and 'polite' correctly"
     $ do
@@ -79,8 +77,7 @@ spec = do
         Left err -> expectationFailure $ unlines ["Failed to parse configuration: ", show err]
         Right c ->
           c
-            `shouldBe` ( Configuration
-                           { configPolite = Just True,
-                             configGreeting = Just "hello"
-                           }
-                       )
+            `shouldBe` Configuration
+              { configPolite = Just True,
+                configGreeting = Just "hello"
+              }
