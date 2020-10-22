@@ -9,7 +9,7 @@ let
     import (
       pkgs.fetchFromGitHub (import ./yamlparse-applicative-version.nix) + "/nix/overlay.nix"
     );
-  templatePkgs =
+  foobarPkgs =
     pkgsv {
       overlays =
         [
@@ -21,4 +21,4 @@ let
       config.allowUnfree = true;
     };
 in
-templatePkgs
+foobarPkgs

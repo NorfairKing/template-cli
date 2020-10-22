@@ -1,6 +1,6 @@
-module Template.Cli.Env where
+module Foobar.Cli.Env where
 
 import Control.Monad.Reader
-import Template.Cli.OptParse
+import Foobar.Cli.OptParse
 
 type C a = ReaderT Settings IO a

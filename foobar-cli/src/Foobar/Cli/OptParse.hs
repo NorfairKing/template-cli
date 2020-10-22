@@ -4,16 +4,16 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE TypeApplications #-}
 
--- | = Optparse Template
+-- | = Optparse Foobar
 --
--- This is a template implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
--- To use this template, follow the instructions below and delete anything you do not need.
+-- This is a foobar implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
+-- To use this foobar, follow the instructions below and delete anything you do not need.
 --
 -- == License
 --
--- This template is __not__ free to use.
+-- This foobar is __not__ free to use.
 --
--- See https://template.cs-syd.eu/template/NorfairKing/template-optparse for more information.
+-- See https://foobar.cs-syd.eu/foobar/NorfairKing/foobar-optparse for more information.
 --
 -- Copyright (c) 2020 Tom Sydney Kerckhove.
 --
@@ -59,7 +59,7 @@
 --
 -- === Included Example
 --
--- This template comes with an example implementation for the 'OptParse' module for a hello world program that has one command: greet.
+-- This foobar comes with an example implementation for the 'OptParse' module for a hello world program that has one command: greet.
 -- This command accepts a '--greeting' option, a 'HELLO_WORLD_GREETING' environment variable, or a 'greeting' field in the configuration file, to specify what to say when greeting the user.
 -- The program also accepts  a '--polite' flag, a 'HELLO_WORLD_POLITE' environment variable, or a 'polite' field in the configuration file, to specify whether or not to be polite when greeting the user.
 -- The greeting setting works for the 'greet' command only while the politeness setting works across commands.
@@ -79,10 +79,10 @@
 --
 -- Continue reading in the code inline for more detailed instructions.
 --
--- You can see an example of option parsing according to this template at https://github.com/NorfairKing/intray/blob/master/intray-cli/src/Intray/Cli/OptParse.hs
+-- You can see an example of option parsing according to this foobar at https://github.com/NorfairKing/intray/blob/master/intray-cli/src/Intray/Cli/OptParse.hs
 --
 -- If you have any trouble, you can contact @syd@ at @cs-syd@ dot @eu@ for support.
-module Template.Cli.OptParse
+module Foobar.Cli.OptParse
   ( -- * Interface
     getInstructions,
     Instructions (..),
@@ -218,7 +218,7 @@ getConfiguration Flags {..} Environment {..} =
 -- https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 defaultConfigFile :: IO (Path Abs File)
 defaultConfigFile = do
-  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|optparse-template|])
+  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|optparse-foobar|])
   resolveFile xdgConfigDir "config.yaml"
 
 -- | What we find in the configuration variable.

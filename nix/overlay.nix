@@ -2,7 +2,7 @@ final: previous:
 with final.lib;
 with final.haskell.lib;
 let
-  templatePkg =
+  foobarPkg =
     name:
       dontHaddock (
         doBenchmark (
@@ -15,19 +15,19 @@ let
           ) (final.haskellPackages.autoexporter)
         )
       );
-  templatePkgWithComp =
+  foobarPkgWithComp =
     exeName: name:
-      generateOptparseApplicativeCompletion exeName (templatePkg name);
-  templatePkgWithOwnComp = name: templatePkgWithComp name name;
+      generateOptparseApplicativeCompletion exeName (foobarPkg name);
+  foobarPkgWithOwnComp = name: foobarPkgWithComp name name;
 in
 {
-  templatePackages = {
-    "template-cli" = templatePkgWithComp "template" "template-cli";
+  foobarPackages = {
+    "foobar-cli" = foobarPkgWithComp "foobar" "foobar-cli";
   };
-  templateRelease =
+  foobarRelease =
     final.symlinkJoin {
-      name = "template-release";
-      paths = attrValues final.templatePackages;
+      name = "foobar-release";
+      paths = attrValues final.foobarPackages;
     };
   haskellPackages =
     previous.haskellPackages.override (
@@ -58,7 +58,7 @@ in
                       self.callCabal2nix "envparse" (envparseRepo) {}
                     );
                 in
-                  final.templatePackages // {
+                  final.foobarPackages // {
                     envparse = self.callHackage "envparse" "0.4.1" {};
                   }
             );

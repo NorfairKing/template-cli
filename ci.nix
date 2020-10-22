@@ -6,7 +6,7 @@ let
     );
 in
 {
-  release = pkgs.templateRelease;
+  release = pkgs.foobarRelease;
   pre-commit-hooks = nix-pre-commit-hooks.run {
     src = ./.;
     hooks = {

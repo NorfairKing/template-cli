@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
-module Template.Cli.Commands.Greet where
+module Foobar.Cli.Commands.Greet where
 
 import Data.Maybe
-import Template.Cli.Commands.Import
+import Foobar.Cli.Commands.Import
 
 greet :: GreetSettings -> C ()
 greet GreetSettings {..} = do

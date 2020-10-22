@@ -1,6 +1,6 @@
-name:                template-cli
+name:                foobar-cli
 version:             0.0.0.0
-github:              "NorfairKing/template-cli"
+github:              "NorfairKing/foobar-cli"
 license:             AllRightsReserved
 author:              "Tom Sydney Kerckhove"
 maintainer:          "syd@cs-syd.eu"
@@ -22,7 +22,7 @@ library:
   - yamlparse-applicative
 
 executables:
-  template:
+  foobar:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -31,11 +31,11 @@ executables:
     - -with-rtsopts=-N
     - -optP-Wno-nonportable-include-path
     dependencies:
-    - template-cli
+    - foobar-cli
 
 
 tests:
-  template-cli-test:
+  foobar-cli-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -46,5 +46,5 @@ tests:
     - envparse
     - hspec
     - optparse-applicative
-    - template-cli
+    - foobar-cli
     - yaml

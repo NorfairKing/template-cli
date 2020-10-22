@@ -1,15 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- | = Optparse Tests Template
+-- | = Optparse Tests Foobar
 --
--- This is a template implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
--- To use this template, follow the instructions below and delete anything you do not need.
+-- This is a foobar implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
+-- To use this foobar, follow the instructions below and delete anything you do not need.
 --
 -- == License
 --
--- This template is __not__ free to use.
+-- This foobar is __not__ free to use.
 --
--- See https://template.cs-syd.eu/template/NorfairKing/template-optparse for more information.
+-- See https://foobar.cs-syd.eu/foobar/NorfairKing/foobar-optparse for more information.
 --
 -- Copyright (c) 2020 Tom Sydney Kerckhove.
 --
@@ -22,15 +22,15 @@
 -- a bug occurs, you definitely want to be able to write regression tests, so
 -- in this module we show one test for each of the arguments, environment
 -- variables and configuration file.
-module Template.OptParseSpec
+module Foobar.OptParseSpec
   ( spec,
   )
 where
 
 import Data.Yaml as Yaml
 import qualified Env
+import Foobar.Cli.OptParse
 import Options.Applicative
-import Template.Cli.OptParse
 import Test.Hspec
 
 spec :: Spec
