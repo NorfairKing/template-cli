@@ -7,6 +7,8 @@ extra-deps:
 - yamlparse-applicative-0.1.0.2@sha256:bda91f2818c1b5b124963931cb7f9a4e5758d026c09713e9ae2234534062747d,2133
 
 nix:
+  # Make sure that this version matches what is in `nix/nixpkgs-version`.
+  path: [ "nixpkgs=https://github.com/NixOS/nixpkgs/archive/e3a2247046d4de66b9b193a6ab3ff040fa3da86d.tar.gz" ]
   packages:
     - zlib
     - haskellPackages.autoexporter
