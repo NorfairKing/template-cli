@@ -4,16 +4,16 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE TypeApplications #-}
 
--- | = Optparse Foobar
+-- | = Optparse Template
 --
--- This is a foobar implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
--- To use this foobar, follow the instructions below and delete anything you do not need.
+-- This is a template implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
+-- To use this template, follow the instructions below and delete anything you do not need.
 --
 -- == License
 --
--- This foobar is __not__ free to use.
+-- This template is __not__ free to use.
 --
--- See https://foobar.cs-syd.eu/foobar/NorfairKing/foobar-optparse for more information.
+-- See https://template.cs-syd.eu/template/NorfairKing/template-optparse for more information.
 --
 -- Copyright (c) 2020 Tom Sydney Kerckhove.
 --
@@ -59,27 +59,27 @@
 --
 -- === Included Example
 --
--- This foobar comes with an example implementation for the 'OptParse' module for a hello world program that has one command: greet.
--- This command accepts a '--greeting' option, a 'HELLO_WORLD_GREETING' environment variable, or a 'greeting' field in the configuration file, to specify what to say when greeting the user.
--- The program also accepts  a '--polite' flag, a 'HELLO_WORLD_POLITE' environment variable, or a 'polite' field in the configuration file, to specify whether or not to be polite when greeting the user.
+-- This template comes with an example implementation for the 'OptParse' module for a hello world program that has one command: greet.
+-- This command accepts a '--greeting' option, a 'FOOBAR_GREETING' environment variable, or a 'greeting' field in the configuration file, to specify what to say when greeting the user.
+-- The program also accepts  a '--polite' flag, a 'FOOBAR_POLITE' environment variable, or a 'polite' field in the configuration file, to specify whether or not to be polite when greeting the user.
 -- The greeting setting works for the 'greet' command only while the politeness setting works across commands.
 --
 -- === 'FilePath' Example
 --
 -- As an example, suppose our program uses a cache file for its 'compute' command.
 --
--- 1. Have a constructor for the 'compute' command that in the 'Command' sum type: 'CommandCompute'
+-- 1. Have a constructor for the 'compute' command in the 'Command' sum type: 'CommandCompute'
 -- 2. Add a 'ComputeArgs' type that contains a 'commandFlagCacheFile :: Maybe FilePath' field to indicate that the user may specify this file on the command-line.
 -- 3. Add a field to the 'Environment' type to indicate that the user may specify this file in an environment variable.
 -- 4. Add a field to the 'Configuration' type to indicate that the user may specify this file in the configuration file as well.
--- 5. Combine the above three in the 'combineToInstructions' function.
+-- 5. Have a constructor for the 'compute' dispatch in the 'Dispatch' sum type: 'DispatchCompute'.
+-- 6. Add a 'ComputeSettings' type that contains a 'computeSettingCacheFile :: Path Abs File' field that your program will use.
+-- 7. Combine the all three in the 'combineToInstructions' function.
 --
 --
 -- === Further instructions and support
 --
 -- Continue reading in the code inline for more detailed instructions.
---
--- You can see an example of option parsing according to this foobar at https://github.com/NorfairKing/intray/blob/master/intray-cli/src/Intray/Cli/OptParse.hs
 --
 -- If you have any trouble, you can contact @syd@ at @cs-syd@ dot @eu@ for support.
 module Foobar.Cli.OptParse
@@ -218,7 +218,7 @@ getConfiguration Flags {..} Environment {..} =
 -- https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 defaultConfigFile :: IO (Path Abs File)
 defaultConfigFile = do
-  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|optparse-foobar|])
+  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|optparse-template|])
   resolveFile xdgConfigDir "config.yaml"
 
 -- | What we find in the configuration variable.
@@ -239,7 +239,7 @@ getEnvironment = Env.parse (Env.header "Environment") environmentParser
 -- | The 'envparse' parser for the 'Environment'
 environmentParser :: Env.Parser Env.Error Environment
 environmentParser =
-  Env.prefixed "HELLO_WORLD_" $
+  Env.prefixed "FOOBAR_" $
     Environment
       <$> Env.var (fmap Just . Env.str) "CONFIG_FILE" (mE <> Env.help "Config file")
       <*> Env.var (fmap Just . Env.auto) "POLITE" (mE <> Env.help "Whether to be polite")

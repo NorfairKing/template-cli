@@ -1,15 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- | = Optparse Tests Foobar
+-- | = Optparse Tests Template
 --
--- This is a foobar implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
--- To use this foobar, follow the instructions below and delete anything you do not need.
+-- This is a template implementation of commands, flags, options, environment variable and configuration file parsing according to best practices.
+-- To use this template, follow the instructions below and delete anything you do not need.
 --
 -- == License
 --
--- This foobar is __not__ free to use.
+-- This template is __not__ free to use.
 --
--- See https://foobar.cs-syd.eu/foobar/NorfairKing/foobar-optparse for more information.
+-- See https://template.cs-syd.eu/template/NorfairKing/template-optparse for more information.
 --
 -- Copyright (c) 2020 Tom Sydney Kerckhove.
 --
@@ -22,7 +22,7 @@
 -- a bug occurs, you definitely want to be able to write regression tests, so
 -- in this module we show one test for each of the arguments, environment
 -- variables and configuration file.
-module Foobar.OptParseSpec
+module Foobar.Cli.OptParseSpec
   ( spec,
   )
 where
@@ -57,18 +57,19 @@ spec = do
                   }
               )
   describe "Environment"
-    $ it "parses HELLO_WORLD_GREETING and HELLO_WORLD_POLITE correctly"
+    $ it "parses FOOBAR_GREETING and FOOBAR_POLITE correctly"
     $ do
-      let env = [("HELLO_WORLD_GREETING", "hello"), ("HELLO_WORLD_POLITE", "True")]
+      let env = [("FOOBAR_GREETING", "hello"), ("FOOBAR_POLITE", "True")]
       case Env.parsePure environmentParser env of
         Left err -> expectationFailure $ unlines ["Failed to parse environment variables: ", show err]
         Right e ->
           e
-            `shouldBe` Environment
-              { envConfigFile = Nothing,
-                envGreeting = Just "hello",
-                envPolite = Just True
-              }
+            `shouldBe` ( Environment
+                           { envConfigFile = Nothing,
+                             envGreeting = Just "hello",
+                             envPolite = Just True
+                           }
+                       )
   describe "Configuration"
     $ it "parses 'greeting' and 'polite' correctly"
     $ do
@@ -77,7 +78,8 @@ spec = do
         Left err -> expectationFailure $ unlines ["Failed to parse configuration: ", show err]
         Right c ->
           c
-            `shouldBe` Configuration
-              { configPolite = Just True,
-                configGreeting = Just "hello"
-              }
+            `shouldBe` ( Configuration
+                           { configPolite = Just True,
+                             configGreeting = Just "hello"
+                           }
+                       )
