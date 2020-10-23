@@ -3,6 +3,16 @@
 This is a template implementation of a command-line tool.
 It features complete option parsing, like in [template-optparse](https://github.com/NorfairKing/template-optparse) as well as command handlers, testing and best-practices
 
+* Multi-command CLI tool
+* Per-command integration test
+* End-to-end test
+* Option parsing & Option parsing tests
+* Nix build
+* CI
+  * Stack-based CI
+  * Nix-based CI
+* Pre-commit hooks
+
 ## License
 
 This template is **not** free to use.
@@ -76,3 +86,4 @@ commandName :: CommandNameSettings -> C ()
 ```
 
 3. Add a case to the `dispatch` function in `Foobar.Cli`.
+4. Add tests in `Foobar.Cli.Command.<CommandName>Spec`.
