@@ -1,7 +1,7 @@
 # CLI Template
 
 This is a template implementation of a command-line tool.
-It features complete option parsing, like in [template-optparse](https://github.com/NorfairKing/template-optparse) as well as command handlers, testing and best-practices
+It features complete option parsing, like in [template-optparse](https://github.com/NorfairKing/template-optparse) as well as command handlers, testing and best-practices.
 
 * Haskell code for a multi-command CLI tool
 * Per-command integration test
@@ -28,7 +28,7 @@ To use this template in a new project, choose the name for your project, for exa
 Then use [template-filler](https://github.com/NorfairKing/template-filler) to use the template, like this:
 
 ```
-template-filler --source /path/to/this/template-cli --destination /path/to/your/homeless-shelter --find Foobar --replace Shelter
+template-filler --source /path/to/this/template-cli --destination /path/to/your/shelter --find Foobar --replace Shelter
 ```
 
 ### Template overview
@@ -81,9 +81,10 @@ Then put its signing key in the 'Secrets' part of your repository on github.
 1. Add the new command's option parsing in the `Foobar.Cli.OptParse` module according to the instructions within.
 
 2. Add a `Foobar.Cli.Command.<CommandName>` module with a function as follows:
-```
-commandName :: CommandNameSettings -> C ()
-```
+
+   ```
+   commandName :: CommandNameSettings -> C ()
+   ```
 
 3. Add a case to the `dispatch` function in `Foobar.Cli`.
 4. Add tests in `Foobar.Cli.Command.<CommandName>Spec`.
