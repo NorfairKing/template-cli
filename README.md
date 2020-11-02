@@ -24,11 +24,11 @@ All Rights Reserved.
 
 ## Instructions
 
-To use this template in a new project, choose the name for your project, for example `shelter`.
+To use this template in a new project, choose the name for your project, for example `homeless-shelter`.
 Then use [template-filler](https://github.com/NorfairKing/template-filler) to use the template, like this:
 
 ```
-template-filler --source /path/to/this/template-cli --destination /path/to/your/shelter --find FooBar --replace Shelter
+template-filler --source /path/to/this/template-cli --destination /path/to/your/homeless-shelter --find FooBar --replace HomelessShelter
 ```
 
 ### Template overview
@@ -36,17 +36,17 @@ template-filler --source /path/to/this/template-cli --destination /path/to/your/
 There is a single haskell package in `fooBar-cli`.
 It contains the following structure:
 
-- The entry point in `FooBar.Cli`
-- Option parsing in `FooBar.Cli.OptParse`
-- The (read-only) environment and related functions in `FooBar.Cli.Env`
-- Individual commands in `FooBar.Cli.<command>`. There is an example in `FooBar.Cli.Commands.Greet`
+- The entry point in `Foo.Bar.Cli`
+- Option parsing in `Foo.Bar.Cli.OptParse`
+- The (read-only) environment and related functions in `Foo.Bar.Cli.Env`
+- Individual commands in `Foo.Bar.Cli.<command>`. There is an example in `Foo.Bar.Cli.Commands.Greet`
 
 ### OptParse
 
 The option parsing is based on [the option parsing template](https://github.com/NorfairKing/template-optparse).
 It is included in this template so you will not need to also buy the option parsing template.
 
-For more information about how to use the option parsing, follow the instructions in `template-cli/src/FooBar/Cli/OptParse.hs`.
+For more information about how to use the option parsing, follow the instructions in `template-cli/src/Foo/Bar/Cli/OptParse.hs`.
 
 ### Nix build
 
@@ -78,13 +78,13 @@ Then put its signing key in the 'Secrets' part of your repository on github.
 
 #### Adding a command
 
-1. Add the new command's option parsing in the `FooBar.Cli.OptParse` module according to the instructions within.
+1. Add the new command's option parsing in the `Foo.Bar.Cli.OptParse` module according to the instructions within.
 
-2. Add a `FooBar.Cli.Command.<CommandName>` module with a function as follows:
+2. Add a `Foo.Bar.Cli.Command.<CommandName>` module with a function as follows:
 
    ```
    commandName :: CommandNameSettings -> C ()
    ```
 
-3. Add a case to the `dispatch` function in `FooBar.Cli`.
-4. Add tests in `FooBar.Cli.Command.<CommandName>Spec`.
+3. Add a case to the `dispatch` function in `Foo.Bar.Cli`.
+4. Add tests in `Foo.Bar.Cli.Command.<CommandName>Spec`.
