@@ -5,7 +5,7 @@ with final.lib;
 with final.haskell.lib;
 let
   # This is where we define our Haskell packages.
-  foobarPkg =
+  fooBarPkg =
     name:
       dontHaddock (
         doBenchmark (
@@ -21,22 +21,22 @@ let
       );
   # We can automatically add completion for the executables
   # because they use `optparse-applicative`
-  foobarPkgWithComp =
+  fooBarPkgWithComp =
     exeName: name:
-      generateOptparseApplicativeCompletion exeName (foobarPkg name);
-  foobarPkgWithOwnComp = name: foobarPkgWithComp name name;
+      generateOptparseApplicativeCompletion exeName (fooBarPkg name);
+  fooBarPkgWithOwnComp = name: fooBarPkgWithComp name name;
 in
 {
   # This attribute contains all packages in this repository.
-  foobarPackages = {
-    "foobar-cli" = foobarPkgWithComp "foobar" "foobar-cli";
+  fooBarPackages = {
+    "foo-bar-cli" = fooBarPkgWithComp "foo-bar" "foo-bar-cli";
   };
 
   # This attribute puts them all together into one.
-  foobarRelease =
+  fooBarRelease =
     final.symlinkJoin {
-      name = "foobar-release";
-      paths = attrValues final.foobarPackages;
+      name = "foo-bar-release";
+      paths = attrValues final.fooBarPackages;
     };
 
   # This is where we specify specific haskell package versions.
@@ -70,7 +70,7 @@ in
                       self.callCabal2nix "envparse" (envparseRepo) {}
                     );
                 in
-                  final.foobarPackages // {
+                  final.fooBarPackages // {
                     envparse = self.callHackage "envparse" "0.4.1" {};
                   }
             );

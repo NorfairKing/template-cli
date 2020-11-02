@@ -1,6 +1,6 @@
-name:                foobar-cli
+name:                foo-bar-cli
 version:             0.0.0.0
-github:              "NorfairKing/foobar-cli"
+github:              "NorfairKing/foo-bar-cli"
 license:             AllRightsReserved
 author:              "Tom Sydney Kerckhove"
 maintainer:          "syd@cs-syd.eu"
@@ -22,7 +22,7 @@ library:
   - yamlparse-applicative
 
 executables:
-  foobar:
+  foo-bar:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -31,11 +31,11 @@ executables:
     - -with-rtsopts=-N
     - -optP-Wno-nonportable-include-path
     dependencies:
-    - foobar-cli
+    - foo-bar-cli
 
 
 tests:
-  foobar-cli-test:
+  foo-bar-cli-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -44,7 +44,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - envparse
-    - foobar-cli
+    - foo-bar-cli
     - hspec
     - mtl
     - optparse-applicative

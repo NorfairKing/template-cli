@@ -1,14 +1,14 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Foobar.Cli
-  ( foobarCli,
+module FooBar.Cli
+  ( fooBarCli,
   )
 where
 
-import Foobar.Cli.Commands
+import FooBar.Cli.Commands
 
-foobarCli :: IO ()
-foobarCli = do
+fooBarCli :: IO ()
+fooBarCli = do
   Instructions disp sets <- getInstructions
   runReaderT (dispatch disp) sets
 

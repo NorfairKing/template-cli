@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Foobar.Cli.Commands.GreetSpec
+module Foo.Bar.Cli.Commands.GreetSpec
   ( spec,
   )
 where
 
 import Control.Monad.Reader
-import Foobar.Cli.Commands.Greet
-import Foobar.Cli.OptParse
+import Foo.Bar.Cli.Commands.Greet
+import Foo.Bar.Cli.OptParse
 import Test.Hspec
 
 spec :: Spec

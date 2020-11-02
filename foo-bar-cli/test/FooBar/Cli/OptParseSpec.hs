@@ -22,14 +22,14 @@
 -- a bug occurs, you definitely want to be able to write regression tests, so
 -- in this module we show one test for each of the arguments, environment
 -- variables and configuration file.
-module Foobar.Cli.OptParseSpec
+module FooBar.Cli.OptParseSpec
   ( spec,
   )
 where
 
 import Data.Yaml as Yaml
 import qualified Env
-import Foobar.Cli.OptParse
+import FooBar.Cli.OptParse
 import Options.Applicative
 import Test.Hspec
 
@@ -57,9 +57,9 @@ spec = do
                   }
               )
   describe "Environment"
-    $ it "parses FOOBAR_GREETING and FOOBAR_POLITE correctly"
+    $ it "parses FOO_BAR_GREETING and FOO_BAR_POLITE correctly"
     $ do
-      let env = [("FOOBAR_GREETING", "hello"), ("FOOBAR_POLITE", "True")]
+      let env = [("FOO_BAR_GREETING", "hello"), ("FOO_BAR_POLITE", "True")]
       case Env.parsePure environmentParser env of
         Left err -> expectationFailure $ unlines ["Failed to parse environment variables: ", show err]
         Right e ->
