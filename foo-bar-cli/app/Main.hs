@@ -1,6 +1,6 @@
 module Main where
 
-import FooBar.Cli
+import Foo.Bar.Cli
 
 main :: IO ()
 main = fooBarCli
