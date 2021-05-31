@@ -1,19 +1,16 @@
+{ sources ? import ./sources.nix
+}:
 let
-  pkgsv = import (import ./nixpkgs.nix);
-  pkgs = pkgsv {};
-  yamlparse-applicative-overlay =
-    import (
-      pkgs.fetchFromGitHub (import ./yamlparse-applicative-version.nix) + "/nix/overlay.nix"
-    );
-  fooBarPkgs =
-    pkgsv {
-      overlays =
-        [
-          yamlparse-applicative-overlay
-          (import ./gitignore-src.nix)
-          (import ./overlay.nix)
-        ];
-      config.allowUnfree = true;
-    };
+  pkgsf = import sources.nixpkgs;
 in
-fooBarPkgs
+pkgsf {
+  overlays =
+    [
+      (import (sources.yamlparse-applicative + "/nix/overlay.nix"))
+      (import (sources.safe-coloured-text + "/nix/overlay.nix"))
+      (final: previous: { inherit (import sources.gitignore { inherit (final) lib; }) gitignoreSource; })
+      (import ./overlay.nix)
+    ];
+  config.allowUnfree = true;
+}
+

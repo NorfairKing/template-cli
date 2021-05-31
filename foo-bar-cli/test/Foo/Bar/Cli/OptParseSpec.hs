@@ -35,51 +35,51 @@ import Test.Hspec
 
 spec :: Spec
 spec = do
-  describe "Arguments"
-    $ it "parses 'greet --greeting hello --polite' correctly"
-    $ do
-      let args = ["greet", "--greeting", "hello", "--polite"]
-      case execParserPure prefs_ argParser args of
-        CompletionInvoked _ -> expectationFailure "Completion invoked"
-        Failure err -> expectationFailure $ unlines ["Failed to parse arguments: ", show err]
-        Success a ->
-          a
-            `shouldBe` Arguments
-              ( CommandGreet
-                  ( GreetArgs
-                      { greetArgGreeting = Just "hello"
-                      }
-                  )
-              )
-              ( Flags
-                  { flagConfigFile = Nothing,
-                    flagPolite = Just True
-                  }
-              )
-  describe "Environment"
-    $ it "parses FOO_BAR_GREETING and FOO_BAR_POLITE correctly"
-    $ do
-      let env = [("FOO_BAR_GREETING", "hello"), ("FOO_BAR_POLITE", "True")]
-      case Env.parsePure environmentParser env of
-        Left err -> expectationFailure $ unlines ["Failed to parse environment variables: ", show err]
-        Right e ->
-          e
-            `shouldBe` ( Environment
-                           { envConfigFile = Nothing,
-                             envGreeting = Just "hello",
-                             envPolite = Just True
-                           }
-                       )
-  describe "Configuration"
-    $ it "parses 'greeting' and 'polite' correctly"
-    $ do
-      let config = object [("greeting", "hello"), ("polite", toJSON True)]
-      case parseEither parseJSON config of
-        Left err -> expectationFailure $ unlines ["Failed to parse configuration: ", show err]
-        Right c ->
-          c
-            `shouldBe` ( Configuration
-                           { configPolite = Just True,
-                             configGreeting = Just "hello"
-                           }
-                       )
+  describe "Arguments" $
+    it "parses 'greet --greeting hello --polite' correctly" $
+      do
+        let args = ["greet", "--greeting", "hello", "--polite"]
+        case execParserPure prefs_ argParser args of
+          CompletionInvoked _ -> expectationFailure "Completion invoked"
+          Failure err -> expectationFailure $ unlines ["Failed to parse arguments: ", show err]
+          Success a ->
+            a
+              `shouldBe` Arguments
+                ( CommandGreet
+                    ( GreetArgs
+                        { greetArgGreeting = Just "hello"
+                        }
+                    )
+                )
+                ( Flags
+                    { flagConfigFile = Nothing,
+                      flagPolite = Just True
+                    }
+                )
+  describe "Environment" $
+    it "parses FOO_BAR_GREETING and FOO_BAR_POLITE correctly" $
+      do
+        let env = [("FOO_BAR_GREETING", "hello"), ("FOO_BAR_POLITE", "True")]
+        case Env.parsePure environmentParser env of
+          Left err -> expectationFailure $ unlines ["Failed to parse environment variables: ", show err]
+          Right e ->
+            e
+              `shouldBe` ( Environment
+                             { envConfigFile = Nothing,
+                               envGreeting = Just "hello",
+                               envPolite = Just True
+                             }
+                         )
+  describe "Configuration" $
+    it "parses 'greeting' and 'polite' correctly" $
+      do
+        let config = object [("greeting", "hello"), ("polite", toJSON True)]
+        case parseEither parseJSON config of
+          Left err -> expectationFailure $ unlines ["Failed to parse configuration: ", show err]
+          Right c ->
+            c
+              `shouldBe` ( Configuration
+                             { configPolite = Just True,
+                               configGreeting = Just "hello"
+                             }
+                         )

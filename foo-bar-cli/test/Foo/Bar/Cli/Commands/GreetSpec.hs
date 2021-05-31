@@ -12,9 +12,9 @@ import Test.Hspec
 
 spec :: Spec
 spec =
-  describe "greet"
-    $ it "does not crash"
-    $ runReaderT
-      ( greet GreetSettings {greetSettingGreeting = Just "Hello"}
-      )
-      (Settings {settingPolite = True})
+  describe "greet" $
+    it "does not crash" $
+      runReaderT
+        ( greet GreetSettings {greetSettingGreeting = Just "Hello"}
+        )
+        (Settings {settingPolite = True})

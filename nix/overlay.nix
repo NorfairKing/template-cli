@@ -7,23 +7,25 @@ let
   # This is where we define our Haskell packages.
   fooBarPkg =
     name:
-      dontHaddock (
-        doBenchmark (
-          addBuildDepend (
+    dontHaddock (
+      doBenchmark (
+        addBuildDepend
+          (
             failOnAllWarnings (
               disableLibraryProfiling (
                 # I turn off library profiling because it slows down the build.
-                final.haskellPackages.callCabal2nix name (final.gitignoreSource (../. + "/${name}")) {}
+                final.haskellPackages.callCabal2nix name (final.gitignoreSource (../. + "/${name}")) { }
               )
             )
-          ) (final.haskellPackages.autoexporter)
-        )
-      );
+          )
+          (final.haskellPackages.autoexporter)
+      )
+    );
   # We can automatically add completion for the executables
   # because they use `optparse-applicative`
   fooBarPkgWithComp =
     exeName: name:
-      generateOptparseApplicativeCompletion exeName (fooBarPkg name);
+    generateOptparseApplicativeCompletion exeName (fooBarPkg name);
   fooBarPkgWithOwnComp = name: fooBarPkgWithComp name name;
 in
 {
@@ -44,15 +46,17 @@ in
   haskellPackages =
     previous.haskellPackages.override (
       old:
-        {
-          overrides =
-            final.lib.composeExtensions (
+      {
+        overrides =
+          final.lib.composeExtensions
+            (
               old.overrides or (
                 _:
                 _:
-                  {}
+                { }
               )
-            ) (
+            )
+            (
               self: super:
                 with final.haskell.lib;
                 let
@@ -67,13 +71,13 @@ in
                     };
                   envparsePkg =
                     dontCheck (
-                      self.callCabal2nix "envparse" (envparseRepo) {}
+                      self.callCabal2nix "envparse" (envparseRepo) { }
                     );
                 in
-                  final.fooBarPackages // {
-                    envparse = self.callHackage "envparse" "0.4.1" {};
-                  }
+                final.fooBarPackages // {
+                  envparse = self.callHackage "envparse" "0.4.1" { };
+                }
             );
-        }
+      }
     );
 }

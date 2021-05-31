@@ -137,10 +137,9 @@ getInstructions = do
   combineToInstructions args env config
 
 -- | A product type for the settings that are common across commands
-data Settings
-  = Settings
-      { settingPolite :: Bool
-      }
+data Settings = Settings
+  { settingPolite :: Bool
+  }
   deriving (Show, Eq, Generic)
 
 -- | A sum type for the commands and their specific settings
@@ -150,10 +149,9 @@ data Dispatch
 
 -- | One type per command for its settings.
 -- You can omit this if the command does not need specific settings.
-data GreetSettings
-  = GreetSettings
-      { greetSettingGreeting :: Maybe Text
-      }
+data GreetSettings = GreetSettings
+  { greetSettingGreeting :: Maybe Text
+  }
   deriving (Show, Eq, Generic)
 
 -- | Combine everything to instructions
@@ -182,11 +180,10 @@ combineToInstructions (Arguments cmd Flags {..}) Environment {..} mConf = do
 -- For example, use 'Maybe FilePath', not 'Path Abs File'.
 --
 -- Use 'YamlParse.readConfigFile' or 'YamlParse.readFirstConfigFile' to read a configuration.
-data Configuration
-  = Configuration
-      { configPolite :: Maybe Bool,
-        configGreeting :: Maybe Text
-      }
+data Configuration = Configuration
+  { configPolite :: Maybe Bool,
+    configGreeting :: Maybe Text
+  }
   deriving (Show, Eq, Generic)
 
 instance FromJSON Configuration where
@@ -225,12 +222,11 @@ defaultConfigFile = do
 --
 -- Do nothing clever here, just represent the relevant parts of the environment.
 -- For example, use 'Text', not 'SqliteConfig'.
-data Environment
-  = Environment
-      { envConfigFile :: Maybe FilePath,
-        envPolite :: Maybe Bool,
-        envGreeting :: Maybe Text
-      }
+data Environment = Environment
+  { envConfigFile :: Maybe FilePath,
+    envPolite :: Maybe Bool,
+    envGreeting :: Maybe Text
+  }
   deriving (Show, Eq, Generic)
 
 getEnvironment :: IO Environment
@@ -297,10 +293,9 @@ parseCommand =
       ]
 
 -- | One type per command, for the command-specific arguments
-data GreetArgs
-  = GreetArgs
-      { greetArgGreeting :: Maybe Text
-      }
+data GreetArgs = GreetArgs
+  { greetArgGreeting :: Maybe Text
+  }
   deriving (Show, Eq, Generic)
 
 -- | One 'optparse-applicative' parser for each command's flags
@@ -321,11 +316,10 @@ parseCommandGreet = OptParse.info parser modifier
           )
 
 -- | The flags that are common across commands.
-data Flags
-  = Flags
-      { flagConfigFile :: Maybe FilePath,
-        flagPolite :: Maybe Bool
-      }
+data Flags = Flags
+  { flagConfigFile :: Maybe FilePath,
+    flagPolite :: Maybe Bool
+  }
   deriving (Show, Eq, Generic)
 
 -- | The 'optparse-applicative' parser for the 'Flags'.
