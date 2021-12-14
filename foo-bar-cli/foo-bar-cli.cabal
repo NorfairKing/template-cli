@@ -1,0 +1,77 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.5.
+--
+-- see: https://github.com/sol/hpack
+
+name:           foo-bar-cli
+version:        0.0.0.0
+homepage:       https://github.com/NorfairKing/foo-bar-cli#readme
+bug-reports:    https://github.com/NorfairKing/foo-bar-cli/issues
+author:         Tom Sydney Kerckhove
+maintainer:     syd@cs-syd.eu
+copyright:      Copyright (c) 2020-2022 Tom Sydney Kerckhove
+license:        AllRightsReserved
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/NorfairKing/foo-bar-cli
+
+library
+  exposed-modules:
+      Foo.Bar.Cli
+      Foo.Bar.Cli.Commands
+      Foo.Bar.Cli.Commands.Greet
+      Foo.Bar.Cli.Commands.Import
+      Foo.Bar.Cli.Env
+      Foo.Bar.Cli.OptParse
+  other-modules:
+      Paths_foo_bar_cli
+  hs-source-dirs:
+      src
+  build-depends:
+      autodocodec
+    , autodocodec-yaml
+    , base >=4.7 && <5
+    , envparse
+    , mtl
+    , optparse-applicative
+    , path
+    , path-io
+    , text
+    , yaml
+  default-language: Haskell2010
+
+executable foo-bar
+  main-is: Main.hs
+  other-modules:
+      Paths_foo_bar_cli
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -optP-Wno-nonportable-include-path
+  build-depends:
+      base >=4.7 && <5
+    , foo-bar-cli
+  default-language: Haskell2010
+
+test-suite foo-bar-cli-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Foo.Bar.Cli.Commands.GreetSpec
+      Foo.Bar.Cli.OptParseSpec
+      Foo.Bar.CliSpec
+      Paths_foo_bar_cli
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , envparse
+    , foo-bar-cli
+    , hspec
+    , mtl
+    , optparse-applicative
+    , yaml
+  default-language: Haskell2010

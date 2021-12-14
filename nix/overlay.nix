@@ -11,10 +11,10 @@ let
       doBenchmark (
         addBuildDepend
           (
-            failOnAllWarnings (
+            buildStrictly (
               disableLibraryProfiling (
                 # I turn off library profiling because it slows down the build.
-                final.haskellPackages.callCabal2nix name (final.gitignoreSource (../. + "/${name}")) { }
+                final.haskellPackages.callCabal2nixWithOptions name (final.gitignoreSource (../. + "/${name}")) "--no-hpack" { }
               )
             )
           )
@@ -38,7 +38,7 @@ in
   fooBarRelease =
     final.symlinkJoin {
       name = "foo-bar-release";
-      paths = attrValues final.fooBarPackages;
+      paths = builtins.map justStaticExecutables (attrValues final.fooBarPackages);
     };
 
   # This is where we specify specific haskell package versions.
@@ -59,21 +59,6 @@ in
             (
               self: super:
                 with final.haskell.lib;
-                let
-                  # envparse
-                  envparseRepo =
-                    final.fetchFromGitHub {
-                      owner = "supki";
-                      repo = "envparse";
-                      rev = "de5944fb09e9d941fafa35c0f05446af348e7b4d";
-                      sha256 =
-                        "sha256:0piljyzplj3bjylnxqfl4zpc3vc88i9fjhsj06bk7xj48dv3jg3b";
-                    };
-                  envparsePkg =
-                    dontCheck (
-                      self.callCabal2nix "envparse" (envparseRepo) { }
-                    );
-                in
                 final.fooBarPackages // {
                   envparse = self.callHackage "envparse" "0.4.1" { };
                 }

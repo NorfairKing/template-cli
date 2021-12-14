@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE RecordWildCards #-}
@@ -15,7 +16,7 @@
 --
 -- See https://template.cs-syd.eu/template/NorfairKing/template-optparse for more information.
 --
--- Copyright (c) 2020 Tom Sydney Kerckhove.
+-- Copyright (c) 2020-2022 Tom Sydney Kerckhove.
 --
 -- All Rights Reserved.
 --
@@ -112,21 +113,23 @@ module Foo.Bar.Cli.OptParse
   )
 where
 
+import Autodocodec
+import Autodocodec.Yaml
 import Control.Applicative
 import Data.Maybe
 import Data.Text (Text)
 import qualified Data.Text as T
-import Data.Yaml
+import qualified Data.Text.Encoding as TE
+import Data.Yaml (FromJSON, ToJSON)
 import qualified Env
 import GHC.Generics (Generic)
 import Options.Applicative as OptParse
 import qualified Options.Applicative.Help as OptParse (string)
 import Path
 import Path.IO
-import YamlParse.Applicative as YamlParse
 
 data Instructions
-  = Instructions Dispatch Settings
+  = Instructions !Dispatch !Settings
   deriving (Show, Eq, Generic)
 
 getInstructions :: IO Instructions
@@ -138,19 +141,19 @@ getInstructions = do
 
 -- | A product type for the settings that are common across commands
 data Settings = Settings
-  { settingPolite :: Bool
+  { settingPolite :: !Bool
   }
   deriving (Show, Eq, Generic)
 
 -- | A sum type for the commands and their specific settings
 data Dispatch
-  = DispatchGreet GreetSettings
+  = DispatchGreet !GreetSettings
   deriving (Show, Eq, Generic)
 
 -- | One type per command for its settings.
 -- You can omit this if the command does not need specific settings.
 data GreetSettings = GreetSettings
-  { greetSettingGreeting :: Maybe Text
+  { greetSettingGreeting :: !(Maybe Text)
   }
   deriving (Show, Eq, Generic)
 
@@ -179,23 +182,21 @@ combineToInstructions (Arguments cmd Flags {..}) Environment {..} mConf = do
 -- Do nothing clever here, just represent the configuration file.
 -- For example, use 'Maybe FilePath', not 'Path Abs File'.
 --
--- Use 'YamlParse.readConfigFile' or 'YamlParse.readFirstConfigFile' to read a configuration.
+-- Use 'readYamlConfigFile' or 'readFirstYamlConfigFile' to read a configuration.
 data Configuration = Configuration
-  { configPolite :: Maybe Bool,
-    configGreeting :: Maybe Text
+  { configPolite :: !(Maybe Bool),
+    configGreeting :: !(Maybe Text)
   }
-  deriving (Show, Eq, Generic)
+  deriving stock (Show, Eq, Generic)
+  deriving (FromJSON, ToJSON) via (Autodocodec Configuration)
 
-instance FromJSON Configuration where
-  parseJSON = viaYamlSchema
-
--- | We use 'yamlparse-applicative' for parsing a YAML config.
-instance YamlSchema Configuration where
-  yamlSchema =
-    objectParser "Configuration" $
+-- | We use @autodocodec@ for parsing a YAML config.
+instance HasCodec Configuration where
+  codec =
+    object "Configuration" $
       Configuration
-        <$> optionalField "polite" "Whether to be polite"
-        <*> optionalField "greeting" "What to say when greeting"
+        <$> optionalField "polite" "Whether to be polite" .= configPolite
+        <*> optionalField "greeting" "What to say when greeting" .= configGreeting
 
 -- | Get the configuration
 --
@@ -204,10 +205,10 @@ instance YamlSchema Configuration where
 getConfiguration :: Flags -> Environment -> IO (Maybe Configuration)
 getConfiguration Flags {..} Environment {..} =
   case flagConfigFile <|> envConfigFile of
-    Nothing -> defaultConfigFile >>= YamlParse.readConfigFile
+    Nothing -> defaultConfigFile >>= readYamlConfigFile
     Just cf -> do
       afp <- resolveFile' cf
-      YamlParse.readConfigFile afp
+      readYamlConfigFile afp
 
 -- | Where to get the configuration file by default.
 --
@@ -215,7 +216,7 @@ getConfiguration Flags {..} Environment {..} =
 -- https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 defaultConfigFile :: IO (Path Abs File)
 defaultConfigFile = do
-  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|optparse-template|])
+  xdgConfigDir <- getXdgDir XdgConfig (Just [reldir|foo-bar|])
   resolveFile xdgConfigDir "config.yaml"
 
 -- | What we find in the configuration variable.
@@ -223,9 +224,9 @@ defaultConfigFile = do
 -- Do nothing clever here, just represent the relevant parts of the environment.
 -- For example, use 'Text', not 'SqliteConfig'.
 data Environment = Environment
-  { envConfigFile :: Maybe FilePath,
-    envPolite :: Maybe Bool,
-    envGreeting :: Maybe Text
+  { envConfigFile :: !(Maybe FilePath),
+    envPolite :: !(Maybe Bool),
+    envGreeting :: !(Maybe Text)
   }
   deriving (Show, Eq, Generic)
 
@@ -274,7 +275,7 @@ argParser =
         [ Env.helpDoc environmentParser,
           "",
           "Configuration file format:",
-          T.unpack (YamlParse.prettyColourisedSchemaDoc @Configuration)
+          T.unpack (TE.decodeUtf8 (renderColouredSchemaViaCodec @Configuration))
         ]
 
 parseArgs :: OptParse.Parser Arguments
@@ -317,8 +318,8 @@ parseCommandGreet = OptParse.info parser modifier
 
 -- | The flags that are common across commands.
 data Flags = Flags
-  { flagConfigFile :: Maybe FilePath,
-    flagPolite :: Maybe Bool
+  { flagConfigFile :: !(Maybe FilePath),
+    flagPolite :: !(Maybe Bool)
   }
   deriving (Show, Eq, Generic)
 

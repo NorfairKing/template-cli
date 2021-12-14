@@ -4,7 +4,7 @@ github:              "NorfairKing/foo-bar-cli"
 license:             AllRightsReserved
 author:              "Tom Sydney Kerckhove"
 maintainer:          "syd@cs-syd.eu"
-copyright:           "Copyright (c) 2020 Tom Sydney Kerckhove"
+copyright:           "Copyright (c) 2020-2022 Tom Sydney Kerckhove"
 
 dependencies:
 - base >= 4.7 && < 5
@@ -19,7 +19,8 @@ library:
   - path-io
   - text
   - yaml
-  - yamlparse-applicative
+  - autodocodec
+  - autodocodec-yaml
 
 executables:
   foo-bar:
