@@ -32,13 +32,17 @@ jobs:
           .stack-work
         key: ${{ runner.os }}-${{ matrix.ghc }}-stack
 
-    - name: Build dependencies
+    - name: Build autoexporter
       run: |
-        stack build --system-ghc --only-dependencies
+        stack install --system-ghc hpack
 
     - name: Build autoexporter
       run: |
         stack install --system-ghc autoexporter
+
+    - name: Build dependencies
+      run: |
+        stack build --system-ghc --only-dependencies
 
     - name: Build
       run: |
