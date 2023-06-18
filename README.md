@@ -7,6 +7,8 @@ It features complete option parsing, like in [template-optparse](https://github.
 * Per-command integration test
 * End-to-end test
 * Option parsing & Option parsing tests
+* Stack build
+* Cabal build
 * Nix build
 * CI
   * Stack-based CI
@@ -18,7 +20,7 @@ It features complete option parsing, like in [template-optparse](https://github.
 This template is **not** free to use.
 See https://template.cs-syd.eu/template/NorfairKing/template-cli for more information.
 
-Copyright (c) 2020-2022 Tom Sydney Kerckhove.
+Copyright (c) 2020-2023 Tom Sydney Kerckhove.
 
 All Rights Reserved.
 

@@ -1,0 +1,22 @@
+{ mkDerivation, autodocodec, autodocodec-yaml, base, envparse
+, hspec, lib, mtl, optparse-applicative, path, path-io, text, yaml
+}:
+mkDerivation {
+  pname = "foo-bar-cli";
+  version = "0.0.0.0";
+  src = ./.;
+  isLibrary = true;
+  isExecutable = true;
+  libraryHaskellDepends = [
+    autodocodec autodocodec-yaml base envparse mtl optparse-applicative
+    path path-io text yaml
+  ];
+  executableHaskellDepends = [ base ];
+  testHaskellDepends = [
+    base envparse hspec mtl optparse-applicative yaml
+  ];
+  homepage = "https://github.com/NorfairKing/foo-bar-cli#readme";
+  license = lib.licenses.unfree;
+  hydraPlatforms = lib.platforms.none;
+  mainProgram = "foo-bar";
+}
