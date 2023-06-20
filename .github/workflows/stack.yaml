@@ -32,9 +32,9 @@ jobs:
           .stack-work
         key: ${{ runner.os }}-${{ matrix.ghc }}-stack
 
-    - name: Build autoexporter
+    - name: Build hpack
       run: |
-        stack install --system-ghc hpack
+        stack install --system-ghc hpack --with-hpack true
 
     - name: Build autoexporter
       run: |
