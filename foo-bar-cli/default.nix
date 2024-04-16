@@ -1,6 +1,6 @@
-{ mkDerivation, autodocodec, autodocodec-yaml, base, envparse
-, hspec, hspec-discover, lib, mtl, optparse-applicative, path
-, path-io, text, yaml
+{ mkDerivation, autodocodec, autodocodec-yaml, autoexporter, base
+, envparse, hspec, hspec-discover, lib, mtl, optparse-applicative
+, path, path-io, text, yaml
 }:
 mkDerivation {
   pname = "foo-bar-cli";
@@ -12,6 +12,7 @@ mkDerivation {
     autodocodec autodocodec-yaml base envparse mtl optparse-applicative
     path path-io text yaml
   ];
+  libraryToolDepends = [ autoexporter ];
   executableHaskellDepends = [ base ];
   testHaskellDepends = [
     base envparse hspec mtl optparse-applicative yaml

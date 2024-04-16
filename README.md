@@ -10,6 +10,7 @@ It features complete option parsing, like in [template-optparse](https://github.
 * Cabal build
 * Stack build
 * Nix build
+* Statically-linked nix build
 * Coverage report
 * Weeder check
 * Flake-based CI

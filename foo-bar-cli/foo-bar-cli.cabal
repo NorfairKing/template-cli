@@ -30,6 +30,8 @@ library
       Paths_foo_bar_cli
   hs-source-dirs:
       src
+  build-tool-depends:
+      autoexporter:autoexporter
   build-depends:
       autodocodec
     , autodocodec-yaml
