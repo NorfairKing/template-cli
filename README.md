@@ -11,7 +11,8 @@ It features complete option parsing, like in [template-optparse](https://github.
 * Stack build
 * Nix build
 * Coverage report
-* flake-based CI
+* Weeder check
+* Flake-based CI
 * Pre-commit hooks
 
 ## License
@@ -19,7 +20,7 @@ It features complete option parsing, like in [template-optparse](https://github.
 This template is **not** free to use.
 See https://template.cs-syd.eu/template/NorfairKing/template-cli for more information.
 
-Copyright (c) 2020-2023 Tom Sydney Kerckhove.
+Copyright (c) 2020-2024 Tom Sydney Kerckhove.
 
 All Rights Reserved.
 
