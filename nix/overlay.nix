@@ -18,7 +18,7 @@ with final.haskell.lib;
               "--ghc-option=-optl=-static"
               # Static
               "--extra-lib-dirs=${final.gmp6.override { withStatic = true; }}/lib"
-              "--extra-lib-dirs=${final.libffi.overrideAttrs (old: { dontDisableStatic = true; })}/lib"
+              "--extra-lib-dirs=${final.libffi.overrideAttrs (_: { dontDisableStatic = true; })}/lib"
             ];
             enableSharedExecutables = !final.stdenv.hostPlatform.isMusl;
             enableSharedLibraries = !final.stdenv.hostPlatform.isMusl;
@@ -31,7 +31,7 @@ with final.haskell.lib;
   haskellPackages = prev.haskellPackages.override (old: {
     overrides = final.lib.composeExtensions (old.overrides or (_: _: { }))
       (
-        self: super:
+        self: _:
           let
             fooBarPkg = name:
               buildFromSdist (overrideCabal (self.callPackage (../${name}/default.nix) { }) (old: {
@@ -63,10 +63,9 @@ with final.haskell.lib;
             fooBarPkgWithComp =
               exeName: name:
               self.generateOptparseApplicativeCompletions [ exeName ] (fooBarPkg name);
-            fooBarPkgWithOwnComp = name: fooBarPkgWithComp name name;
 
             fooBarPackages = {
-              foo-bar-cli = fooBarPkg "foo-bar-cli";
+              foo-bar-cli = fooBarPkgWithComp "foo-bar" "foo-bar-cli";
             };
           in
           {

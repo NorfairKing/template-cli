@@ -58,6 +58,8 @@
             ormolu.enable = true;
             nixpkgs-fmt.enable = true;
             nixpkgs-fmt.excludes = [ ".*/default.nix" ];
+            deadnix.enable = true;
+            deadnix.excludes = [ ".*/default.nix" ];
             cabal2nix.enable = true;
           };
         };
@@ -78,6 +80,7 @@
             nixpkgs-fmt
             ormolu
             cabal2nix
+            deadnix
           ]);
         shellHook = self.checks.${system}.pre-commit.shellHook;
       };
